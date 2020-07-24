@@ -1,0 +1,58 @@
+﻿@model FormTask.ViewModel.ViewClientCountry
+@{
+    ViewBag.Title = "New";
+}
+<style>
+    .formTask{
+        margin-top:25px;
+    }
+</style>
+@using (Html.BeginForm("Create", "Client"))
+{
+ <div class="container formTask">
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.ClientView.Name)
+        @Html.TextBoxFor(x => x.ClientView.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @* @Html.LabelFor(x => x.ClientView.CountryId)*@
+        <label>Gender</label>
+        @Html.EnumDropDownListFor(x => x.ClientView.gender, "--select Gender--", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @* @Html.LabelFor(x => x.ClientView.CountryId)*@
+        <label>Country</label>
+        @Html.DropDownListFor(x => x.ClientView.CountryId, new SelectList(Model.CountryView, "Id", "Name"), "--select country--", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @*@Html.LabelFor(x => x.ClientView.Country.Id) *@
+        <label>City</label>
+        @Html.DropDownListFor(x => x.ClientView.Country.Id, new SelectList(Model.CityView, "Id", "Name"), "--select city--", new { @class = "form-control" })
+    </div>
+
+    @Html.HiddenFor(x => x.ClientView.Id)
+    <button class="btn btn-primary" type="submit">Save</button>
+ </div>
+}
+@*
+    <script>
+        document.ready(function () {
+            var country = $("#ClientView_CountryId");
+            var city = $("ClientView_Country_Id");
+            $.ajax({
+                url: "client/GetCities" + $(this).val(),
+                success: function (data) {
+                    city.append($('<option/>', { value: '0', text: '--select city--' }));
+                    $(data).each(function (index, item) {
+                        city.append($('<option/>', { value: item.Id, text: item.Name }));
+                    });
+                }
+            });
+
+        });
+    </script>
+*@
